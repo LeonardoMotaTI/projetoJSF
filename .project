@@ -33,11 +33,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>META-INF</name>
-			<type>2</type>
-			<location>E:/workspace_estudos_JSF/jsf-livraria/src/META-INF</location>
-		</link>
-	</linkedResources>
 </projectDescription>
