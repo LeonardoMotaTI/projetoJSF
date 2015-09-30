@@ -7,20 +7,25 @@
 	<h:body>
 		<h1>Novo Livro</h1>
 		<h:form>
+			<h:messages/>
 			<fieldset>
 				<legend>Dados do livros</legend>
 				<h:panelGrid columns="2">
 					<h:outputLabel value="Título: " for="titulo" />
-					<h:inputText id="titulo" value="#{livroBean.livro.titulo}" />
-													
+					<h:inputText id="titulo" value="#{livroBean.livro.titulo}" required="true" requiredMessage="Título obrigatório" 
+						validatorMessage="Título não pode ser superior a 40">
+						<f:validateLength maximum="40"/>
+					</h:inputText>													
 					<h:outputLabel value="ISBN: " for="isbn" />
-					<h:inputText id="isbn" value="#{livroBean.livro.isbn}" />
+					<h:inputText id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.comecaComDigitoUm}"/>
 					
 					<h:outputLabel value="Preço: " for="preco" />
 					<h:inputText id="preco" value="#{livroBean.livro.preco}" />
 					
 					<h:outputLabel value="Data de lançamento: " for="dataLancamento" />
-					<h:inputText id="dataLancamento" value="#{livroBean.livro.dataLancamento}" />					
+					<h:inputText id="dataLancamento" value="#{livroBean.livro.dataLancamento.time}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</h:inputText>					
 				</h:panelGrid>
 			</fieldset>
 			<fieldset>
@@ -30,11 +35,40 @@
 						<f:selectItems value="#{livroBean.autores}" var="autor" 
 							itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
 					</h:selectOneMenu>
-					<h:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}"/>
+					<h:commandButton value="Gravar Autor" action="#{livroBean.gravaAutor}"/>
+					
+					<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor">
+						<h:column>
+							<h:outputText value="#{autor.nome}"/>
+						</h:column>
+					</h:dataTable>					
 			</fieldset> 
-			<h:commandButton value="Gravar" action="#{livroBean.gravar}"/>
-			
+			<h:commandButton value="Gravar" action="#{livroBean.gravar}"/>			
 		</h:form>
+		
+		<h:dataTable id="tabelaLivros" value="#{livroBean.livrosLista}" var="livros">
+			<h:column>
+				<f:facet name="header">Título</f:facet>
+				<h:outputText value="#{livros.titulo}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">ISBN</f:facet>
+				<h:outputText value="#{livros.isbn}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				<h:outputText value="#{livros.preco}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Data Lançamento</f:facet>
+				<h:outputText value="#{livros.dataLancamento.time}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</h:column>
+		</h:dataTable>
 	</h:body>
 
 </html>

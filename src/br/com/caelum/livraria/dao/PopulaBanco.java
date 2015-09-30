@@ -26,6 +26,9 @@ public class PopulaBanco {
 
 		Autor coelho = geraAutor("Paulo Coelho");
 		em.persist(coelho);
+		
+		Autor pesce = geraAutor("Bel Pesce");
+		em.persist(pesce);
 
 		Livro casmurro = geraLivro("978-8-52-504464-8", "Dom Casmurro",
 				"10/01/1899", 24.90, assis);
@@ -34,9 +37,13 @@ public class PopulaBanco {
 		Livro quincas = geraLivro("978-8-50-804084-1", "Quincas Borba",
 				"01/01/1891", 16.90, assis);
 
+		Livro meninaVale = geraLivro("978-85-7734-280-8", "Menina do Vale",
+				"01/05/2012", 16.90, pesce);
+		
 		em.persist(casmurro);
 		em.persist(memorias);
 		em.persist(quincas);
+		em.persist(meninaVale);
 
 		Livro alquemista = geraLivro("978-8-57-542758-3", "O Alquimista",
 				"01/01/1988", 19.90, coelho);
@@ -76,7 +83,7 @@ public class PopulaBanco {
 		Livro livro = new Livro();
 		livro.setIsbn(isbn);
 		livro.setTitulo(titulo);
-		livro.setDataLancamento(data);
+		livro.setDataLancamento(parseData(data));
 		livro.setPreco(preco);
 		livro.adicionaAutor(autor);
 		return livro;
