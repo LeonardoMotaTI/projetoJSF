@@ -89,7 +89,7 @@ public class PopulaBanco {
 		return livro;
 	}
 
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private static Calendar parseData(String data) {
 		try {
 			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(data);
